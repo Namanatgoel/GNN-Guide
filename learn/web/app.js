@@ -419,10 +419,12 @@ function initMatrixHeatmap() {
   if (!matrixCanvas) return;
   matrixCtx = matrixCanvas.getContext("2d");
 
-  matrixCanvas.addEventListener("mousemove", (e) => {
+  function handleMatrixHover(clientX, clientY) {
     const rect = matrixCanvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const scaleX = matrixCanvas.width / (rect.width || matrixCanvas.width);
+    const scaleY = matrixCanvas.height / (rect.height || matrixCanvas.height);
+    const x = (clientX - rect.left) * scaleX;
+    const y = (clientY - rect.top) * scaleY;
     const cellSize = 340 / NUM_NODES; // 10px per cell
     const u = Math.floor(y / cellSize);
     const v = Math.floor(x / cellSize);
@@ -433,11 +435,28 @@ function initMatrixHeatmap() {
       inspectMatrixCell(u, v, val, currentMatrixMode);
       renderMatrixHeatmap();
     }
+  }
+
+  matrixCanvas.addEventListener("mousemove", (e) => {
+    handleMatrixHover(e.clientX, e.clientY);
   });
 
   matrixCanvas.addEventListener("click", () => {
     selectNode(hoveredCell.u);
   });
+
+  matrixCanvas.addEventListener("touchstart", (e) => {
+    if (e.touches.length === 1) {
+      handleMatrixHover(e.touches[0].clientX, e.touches[0].clientY);
+      selectNode(hoveredCell.u);
+    }
+  }, { passive: true });
+
+  matrixCanvas.addEventListener("touchmove", (e) => {
+    if (e.touches.length === 1) {
+      handleMatrixHover(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: true });
 
   renderMatrixHeatmap();
   renderSubmatrixTable();
@@ -755,8 +774,125 @@ function initScrollSpy() {
   });
 }
 
+// ── Sidebar Collapse & Reading Progress Controllers ───────────────────────────
+function initSidebarToggle() {
+  const sidebar = document.getElementById("sidebar");
+  const collapseBtn = document.getElementById("sidebarCollapseBtn");
+  const toggleBtn = document.getElementById("sidebarToggleBtn");
+  const backdrop = document.getElementById("sidebarBackdrop");
+  const navLinks = document.querySelectorAll("#sidebar a");
+
+  if (!sidebar) return;
+
+  function updateAriaState(isOpen) {
+    if (toggleBtn) {
+      toggleBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      toggleBtn.setAttribute("title", isOpen ? "Collapse sidebar (Ctrl+B)" : "Expand sidebar (Ctrl+B)");
+    }
+    if (collapseBtn) {
+      collapseBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      collapseBtn.setAttribute("title", isOpen ? "Collapse left panel (Ctrl+B)" : "Expand left panel (Ctrl+B)");
+    }
+  }
+
+  // Restore saved desktop collapse preference
+  const isDesktop = window.innerWidth > 900;
+  const savedCollapsed = localStorage.getItem("gnn_sidebar_collapsed");
+  if (isDesktop && savedCollapsed === "true") {
+    document.body.classList.add("sidebar-collapsed");
+    updateAriaState(false);
+  } else {
+    updateAriaState(true);
+  }
+
+  function toggleSidebar() {
+    const isMobile = window.innerWidth <= 900;
+    if (isMobile) {
+      const willOpen = !document.body.classList.contains("mobile-nav-open");
+      document.body.classList.toggle("mobile-nav-open", willOpen);
+      updateAriaState(willOpen);
+    } else {
+      const willCollapse = !document.body.classList.contains("sidebar-collapsed");
+      document.body.classList.toggle("sidebar-collapsed", willCollapse);
+      localStorage.setItem("gnn_sidebar_collapsed", willCollapse ? "true" : "false");
+      updateAriaState(!willCollapse);
+    }
+  }
+
+  function closeMobileSidebar() {
+    if (document.body.classList.contains("mobile-nav-open")) {
+      document.body.classList.remove("mobile-nav-open");
+      updateAriaState(false);
+    }
+  }
+
+  if (collapseBtn) {
+    collapseBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleSidebar();
+    });
+  }
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleSidebar();
+    });
+  }
+
+  if (backdrop) {
+    backdrop.addEventListener("click", closeMobileSidebar);
+  }
+
+  // Close mobile drawer when user navigates to a section
+  navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      if (window.innerWidth <= 900) {
+        closeMobileSidebar();
+      }
+    });
+  });
+
+  // Keyboard shortcut: Ctrl+B to toggle sidebar, Escape to close mobile drawer
+  window.addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "b") {
+      e.preventDefault();
+      toggleSidebar();
+    } else if (e.key === "Escape") {
+      if (document.body.classList.contains("mobile-nav-open")) {
+        closeMobileSidebar();
+      }
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 900) {
+      closeMobileSidebar();
+      const isCollapsed = document.body.classList.contains("sidebar-collapsed");
+      updateAriaState(!isCollapsed);
+    }
+  });
+}
+
+function initReadingProgress() {
+  const progressBar = document.getElementById("readingProgressBar");
+  if (!progressBar) return;
+
+  function updateProgress() {
+    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (totalHeight <= 0) return;
+    const progress = Math.min(100, Math.max(0, (window.scrollY / totalHeight) * 100));
+    progressBar.style.width = `${progress}%`;
+  }
+
+  window.addEventListener("scroll", updateProgress, { passive: true });
+  updateProgress();
+}
+
 // ── Bootstrap ─────────────────────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
+  initSidebarToggle();
+  initReadingProgress();
   computeGraphMatrices();
   renderGraphSvg();
   selectNode(0);

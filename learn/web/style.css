@@ -30,39 +30,219 @@
   padding: 0;
 }
 
-/* Design Decision: Consistent two-column layout with sticky sidebar across both pages */
+/* Design Decision: Clean full-height column layout supporting sticky top navbar and independent scrolling */
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-page);
   color: var(--text-main);
-  line-height: 1.6;
-  font-size: 15px;
+  line-height: 1.72;
+  font-size: 16px;
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Design Decision: Fixed reading progress bar at top of viewport for continuous progress tracking */
+.reading-progress-track {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: rgba(203, 213, 225, 0.4);
+  z-index: 1100;
+}
+
+.reading-progress-fill {
+  height: 100%;
+  width: 0%;
+  background-color: var(--accent-primary);
+  transition: width 0.08s linear;
+}
+
+/* Design Decision: Sticky top navigation bar provides instant access to sidebar toggle and curriculum metadata */
+.top-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  height: 52px;
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border-card);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+  box-sizing: border-box;
+}
+
+.top-navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.top-navbar-brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.top-navbar-brand {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: 0.3px;
+}
+
+.top-navbar-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background-color: var(--accent-primary-bg);
+  color: #78350f;
+  border: 1px solid #f59e0b;
+}
+
+.top-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.top-read-time {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.top-nav-quick-links {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.top-nav-part-link {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border-card);
+  background: var(--bg-card-muted);
+  transition: all 0.15s ease;
+}
+
+.top-nav-part-link:hover {
+  color: var(--accent-primary);
+  border-color: #f59e0b;
+  background-color: var(--accent-primary-bg);
+}
+
+/* Design Decision: 3-lines collapse button with WCAG AA compliance and visible keyboard focus */
+.sidebar-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid var(--border-card);
+  background-color: var(--bg-card-muted);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.sidebar-toggle-btn:hover {
+  background-color: var(--accent-primary-bg);
+  border-color: #f59e0b;
+  color: #78350f;
+}
+
+.sidebar-toggle-btn:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.sidebar-toggle-btn svg {
+  display: block;
+}
+
+/* Design Decision: Site layout container containing sticky sidebar and centered blog content */
+.site-layout {
+  display: flex;
+  flex: 1 0 auto;
+  width: 100%;
+  min-width: 0;
+  position: relative;
+}
+
+/* Design Decision: Full height translucent backdrop for mobile drawer navigation */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
 }
 
 /* Sidebar Navigation */
 #sidebar {
-  width: 270px;
-  height: 100vh;
+  width: 280px;
+  height: calc(100vh - 52px);
   position: sticky;
-  top: 0;
+  top: 52px;
   background-color: var(--bg-card);
-  border-right: 2px solid var(--border-card);
-  padding: 24px 16px;
+  border-right: 1px solid var(--border-card);
+  padding: 20px 14px;
   overflow-y: auto;
   flex-shrink: 0;
+  transition: margin-left 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 40;
 }
 
-.sidebar-brand {
-  font-size: 0.8rem;
+/* Design Decision: Sidebar header houses brand title and 3-lines collapse button */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--border-card);
+}
+
+.sidebar-brand-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-brand-label {
+  font-size: 0.68rem;
   font-family: var(--font-mono);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   color: var(--accent-primary);
-  margin-bottom: 0.35rem;
+}
+
+.sidebar-brand {
+  font-size: 0.82rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: 0.3px;
 }
 
 #sidebar h3 {
@@ -135,12 +315,27 @@ body {
   color: #78350f;
 }
 
+/* Design Decision: Laptop collapse animation smoothly frees horizontal width for focused reading */
+body.sidebar-collapsed #sidebar {
+  margin-left: -280px;
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* Main Content Area */
 #content {
   flex-grow: 1;
-  max-width: 1000px;
-  padding: 36px 44px;
+  min-width: 0;
+  max-width: 960px;
+  padding: 40px 48px;
   margin: 0 auto;
+  box-sizing: border-box;
+  transition: max-width 0.25s ease, padding 0.25s ease;
+}
+
+/* Design Decision: Centered 840px column in collapsed state optimizes characters per line for technical reading */
+body.sidebar-collapsed #content {
+  max-width: 840px;
 }
 
 /* Header & Breadcrumb Banner */
@@ -616,6 +811,8 @@ canvas.sim-canvas:active {
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 canvas#matrix-canvas {
@@ -623,6 +820,8 @@ canvas#matrix-canvas {
   border: 1px solid var(--border-card);
   cursor: crosshair;
   display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 .matrix-derivation-side {
@@ -855,6 +1054,14 @@ pre {
   margin: 1.25rem 0;
   border: 1px solid #1e293b;
   overflow-x: auto;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+pre code {
+  white-space: pre;
+  display: block;
+  min-width: 100%;
 }
 
 code {
@@ -905,21 +1112,138 @@ p code, li code {
   border: 1px solid #fecaca;
 }
 
-/* Responsive adjustments */
+/* Responsive Mobile & Blog Adjustments */
 @media (max-width: 900px) {
-  body {
-    flex-direction: column;
+  .site-layout {
+    display: block;
   }
+
+  /* Design Decision: Off-canvas drawer with touch-friendly scroll on viewports under 900px */
   #sidebar {
-    width: 100%;
-    height: auto;
-    position: static;
-    border-right: none;
-    border-bottom: 2px solid var(--border-card);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 290px;
+    max-width: 86vw;
+    height: 100vh;
+    z-index: 1000;
+    transform: translateX(-100%);
+    margin-left: 0 !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    box-shadow: none;
+    padding-top: 1.25rem;
+    -webkit-overflow-scrolling: touch;
   }
+
+  body.mobile-nav-open #sidebar {
+    transform: translateX(0);
+    box-shadow: 10px 0 30px rgba(15, 23, 42, 0.25);
+  }
+
+  body.mobile-nav-open .sidebar-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  body.mobile-nav-open {
+    overflow: hidden;
+  }
+
   #content {
-    padding: 24px 16px;
+    padding: 24px 18px;
+    max-width: 100%;
   }
+
+  .top-navbar-brand-wrap .top-navbar-pill {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .top-read-time {
+    display: none;
+  }
+
+  .top-nav-quick-links {
+    display: none;
+  }
+
+  #content {
+    padding: 20px 14px;
+  }
+
+  .blog-meta-bar {
+    gap: 6px;
+  }
+}
+
+/* Design Decision: Responsive horizontal scroll for mathematical formulas and wide tables */
+.katex-display, .display-math-block {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  padding: 0.5rem 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+table:not(.prop-table):not(.submatrix-table) {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+
+pre {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+
+/* Blog Article Header & Lead Formatting */
+.blog-header {
+  border-bottom: 2px solid var(--border-strong);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2.25rem;
+}
+
+.blog-meta-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.blog-tag-primary {
+  background-color: var(--accent-primary-bg);
+  color: #78350f;
+  border: 1px solid #f59e0b;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.blog-meta-item {
+  color: var(--text-muted);
+}
+
+.blog-lead {
+  font-size: 1.06rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  margin-top: 1rem;
+  border-left: 3px solid var(--accent-primary);
+  padding: 0.6rem 0 0.6rem 1rem;
+  background-color: rgba(254, 243, 199, 0.2);
+  border-radius: 0 4px 4px 0;
 }
 
 /* Design Decision: Interactive zoom and pan wrapper for architectural flowcharts */

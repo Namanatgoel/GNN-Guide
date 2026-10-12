@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Graph Neural Networks: From First Principles to Advanced Systems</title>
   <meta name="description" content="Graph Neural Networks from first principles: non-Euclidean topology, spectral Laplacians, MPNN framework, Zachary's Karate Club benchmark, dynamic GAT attention, and canonical benchmarks.">
-  <link rel="stylesheet" href="learn/web/style.css">
+  <link rel="stylesheet" href="learn/web/style.css?v=2">
 
   <!-- KaTeX with resilient fallback -->
   <link rel="stylesheet" href="learn/web/vendor/katex/katex.min.css" onerror="this.onerror=null;this.href='https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css';">
@@ -31,9 +31,54 @@
 </head>
 <body>
 
-  <!-- Unified Sticky Sidebar Navigation -->
-  <nav id="sidebar" aria-label="Course Navigation">
-    <div class="sidebar-brand">Graph Neural Networks</div>
+  <!-- Reading Progress Bar (Fixed Top) -->
+  <div id="readingProgress" class="reading-progress-track" aria-hidden="true">
+    <div id="readingProgressBar" class="reading-progress-fill"></div>
+  </div>
+
+  <!-- Blog Top Navbar with 3-Lines Collapse/Toggle Button -->
+  <header id="topNavbar" class="top-navbar" aria-label="Curriculum Header">
+    <div class="top-navbar-left">
+      <button id="sidebarToggleBtn" class="sidebar-toggle-btn" aria-label="Toggle navigation sidebar" aria-expanded="false" aria-controls="sidebar" title="Toggle navigation sidebar (Ctrl+B)">
+        <svg class="icon-hamburger" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+          <line x1="2.5" y1="5" x2="17.5" y2="5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          <line x1="2.5" y1="10" x2="17.5" y2="10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          <line x1="2.5" y1="15" x2="17.5" y2="15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="top-navbar-brand-wrap">
+        <span class="top-navbar-brand">Graph Neural Networks</span>
+        <span class="top-navbar-pill">Curriculum</span>
+      </div>
+    </div>
+    <div class="top-navbar-right">
+      <span class="top-read-time">45 min read</span>
+      <div class="top-nav-quick-links">
+        <a href="#why-gnns" class="top-nav-part-link">Part 1: Foundations</a>
+        <a href="#bridge" class="top-nav-part-link">Part 2: Advanced</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Backdrop Overlay -->
+  <div id="sidebarBackdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+
+  <div class="site-layout">
+    <!-- Unified Sticky Sidebar Navigation -->
+    <nav id="sidebar" aria-label="Course Navigation">
+      <div class="sidebar-header">
+        <div class="sidebar-brand-group">
+          <span class="sidebar-brand-label">GNN Curriculum</span>
+          <div class="sidebar-brand">Navigation</div>
+        </div>
+        <button id="sidebarCollapseBtn" class="sidebar-toggle-btn sidebar-inner-collapse-btn" aria-label="Collapse navigation sidebar" title="Collapse sidebar (Ctrl+B)">
+          <svg class="icon-hamburger" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+            <line x1="2.5" y1="5" x2="17.5" y2="5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="2.5" y1="10" x2="17.5" y2="10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="2.5" y1="15" x2="17.5" y2="15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
 
     <h3>Part 1: Foundations</h3>
     <ul>
@@ -72,7 +117,13 @@
     </div>
 
     <!-- PART 1 HEADER -->
-    <header id="part-1-header">
+    <header id="part-1-header" class="blog-header">
+      <div class="blog-meta-bar">
+        <span class="blog-tag-primary">Deep Dive Curriculum</span>
+        <span class="blog-meta-item">⏱ 45 min read</span>
+        <span class="blog-meta-item">🗓 October 2026</span>
+        <span class="blog-meta-item">✍ Peer-Reviewed References</span>
+      </div>
       <h1>Graph Neural Networks: First Principles</h1>
       <div class="header-meta">
         <span class="badge badge-primary">Foundational Theory</span>
@@ -80,7 +131,7 @@
         <span class="badge">Interactive Engine: 5-Node Diffusion</span>
         <span class="badge">Reference: Kipf &amp; Welling / Gilmer et al.</span>
       </div>
-      <p style="margin-top: 0.75rem; color: var(--text-muted);">
+      <p class="blog-lead">
         A rigorous introduction to Graph Neural Networks from ground-level mathematics.
         This document explains why Euclidean deep learning fails on irregular relations, derives the message passing framework, calculates a complete forward pass by hand, and tests discrete diffusion interactively.
       </p>
@@ -1059,7 +1110,13 @@ H_gps <span class="tok-op">=</span> <span class="tok-fn">relu</span>(H_local <sp
         <a href="#why-gnns" class="banner-link">&larr; Return to Part 1: Foundations</a>
       </div>
 
-      <header style="margin-top: 1.5rem;">
+      <header class="blog-header" style="margin-top: 1.5rem;">
+        <div class="blog-meta-bar">
+          <span class="blog-tag-primary">Advanced Systems</span>
+          <span class="blog-meta-item">⏱ 30 min read</span>
+          <span class="blog-meta-item">🗓 October 2026</span>
+          <span class="blog-meta-item">✍ Canonical Benchmarks</span>
+        </div>
         <h1>Part 2: Advanced GNN Architectures &amp; Empirical Systems</h1>
         <div class="header-meta">
           <span class="badge badge-primary">Empirical Verification</span>
@@ -1067,7 +1124,7 @@ H_gps <span class="tok-op">=</span> <span class="tok-fn">relu</span>(H_local <sp
           <span class="badge">Framework: PyTorch Geometric (PyG)</span>
           <span class="badge">Paradigms: GCN / GraphSAGE / GAT / GraphGPS</span>
         </div>
-        <p style="margin-top: 0.75rem; color: var(--text-muted);">
+        <p class="blog-lead">
           Building directly upon the topological foundations established in Part 1.
           This document evaluates real-world topological benchmarks, inspects Kipf-Welling spectral renormalization with live cell derivations, demonstrates multi-paradigm message passing on Zachary's Karate Club, evaluates dynamic attention distributions across community boundaries, and verifies training curves on canonical benchmarks.
         </p>
@@ -1656,6 +1713,7 @@ criterion <span class="tok-op">=</span> <span class="tok-bi">nn</span>.<span cla
         <span class="tok-kw">return</span> self.<span class="tok-fn">classifier</span>(h)</code></pre>
     </section>
   </main>
+</div> <!-- /.site-layout -->
 
   <!-- Part 1: 5-Node Multi-Architecture Simulator Logic -->
   <script>
@@ -1716,23 +1774,52 @@ criterion <span class="tok-op">=</span> <span class="tok-bi">nn</span>.<span cla
       if (!simCanvas) return;
       simCtx = simCanvas.getContext("2d");
 
-      simCanvas.addEventListener("mousedown", (e) => {
+      function getCanvasPos(clientX, clientY) {
         const rect = simCanvas.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-        draggedSimNode = simNodes.find(n => Math.hypot(n.x - mouseX, n.y - mouseY) < 24);
+        const scaleX = simCanvas.width / (rect.width || simCanvas.width);
+        const scaleY = simCanvas.height / (rect.height || simCanvas.height);
+        return {
+          x: (clientX - rect.left) * scaleX,
+          y: (clientY - rect.top) * scaleY
+        };
+      }
+
+      simCanvas.addEventListener("mousedown", (e) => {
+        const pos = getCanvasPos(e.clientX, e.clientY);
+        draggedSimNode = simNodes.find(n => Math.hypot(n.x - pos.x, n.y - pos.y) < 24);
       });
 
       simCanvas.addEventListener("mousemove", (e) => {
         if (!draggedSimNode) return;
-        const rect = simCanvas.getBoundingClientRect();
-        draggedSimNode.x = e.clientX - rect.left;
-        draggedSimNode.y = e.clientY - rect.top;
+        const pos = getCanvasPos(e.clientX, e.clientY);
+        draggedSimNode.x = pos.x;
+        draggedSimNode.y = pos.y;
         if (!isSimAnimating) renderSimGraph();
       });
 
       simCanvas.addEventListener("mouseup", () => { draggedSimNode = null; });
       simCanvas.addEventListener("mouseleave", () => { draggedSimNode = null; });
+
+      simCanvas.addEventListener("touchstart", (e) => {
+        if (e.touches.length === 1) {
+          const t = e.touches[0];
+          const pos = getCanvasPos(t.clientX, t.clientY);
+          draggedSimNode = simNodes.find(n => Math.hypot(n.x - pos.x, n.y - pos.y) < 28);
+          if (draggedSimNode) e.preventDefault();
+        }
+      }, { passive: false });
+
+      simCanvas.addEventListener("touchmove", (e) => {
+        if (!draggedSimNode || e.touches.length !== 1) return;
+        const t = e.touches[0];
+        const pos = getCanvasPos(t.clientX, t.clientY);
+        draggedSimNode.x = pos.x;
+        draggedSimNode.y = pos.y;
+        if (!isSimAnimating) renderSimGraph();
+        e.preventDefault();
+      }, { passive: false });
+
+      simCanvas.addEventListener("touchend", () => { draggedSimNode = null; });
 
       const stepBtn = document.getElementById("stepBtn");
       if (stepBtn) {
@@ -1986,6 +2073,6 @@ criterion <span class="tok-op">=</span> <span class="tok-bi">nn</span>.<span cla
   </script>
 
   <!-- Part 2: Advanced Systems, Matrix Heatmap, Karate Club, and Results Engine -->
-  <script defer src="learn/web/app.js"></script>
+  <script defer src="learn/web/app.js?v=2"></script>
 </body>
 </html>
