@@ -12,6 +12,9 @@ htmlcov/
 **/repo_structure.txt
 **/env_setup.sh
 **/antigravity_directive.md
+tier_*
+learn/tier_*
+scratch/
 
 # Environments and Conda
 .env

@@ -62,7 +62,7 @@ body {
   transition: width 0.08s linear;
 }
 
-/* Design Decision: Sticky top navigation bar provides instant access to sidebar toggle and curriculum metadata */
+/* Design Decision: Sticky top navigation bar provides instant access to sidebar toggle and article brand */
 .top-navbar {
   position: sticky;
   top: 0;
@@ -97,17 +97,6 @@ body {
   letter-spacing: 0.3px;
 }
 
-.top-navbar-pill {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 2px 7px;
-  border-radius: 4px;
-  background-color: var(--accent-primary-bg);
-  color: #78350f;
-  border: 1px solid #f59e0b;
-}
-
 .top-navbar-right {
   display: flex;
   align-items: center;
@@ -118,31 +107,6 @@ body {
   font-family: var(--font-mono);
   font-size: 0.78rem;
   color: var(--text-muted);
-}
-
-.top-nav-quick-links {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.top-nav-part-link {
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-decoration: none;
-  padding: 3px 8px;
-  border-radius: 4px;
-  border: 1px solid var(--border-card);
-  background: var(--bg-card-muted);
-  transition: all 0.15s ease;
-}
-
-.top-nav-part-link:hover {
-  color: var(--accent-primary);
-  border-color: #f59e0b;
-  background-color: var(--accent-primary-bg);
 }
 
 /* Design Decision: 3-lines collapse button with WCAG AA compliance and visible keyboard focus */
@@ -213,7 +177,7 @@ body {
   z-index: 40;
 }
 
-/* Design Decision: Sidebar header houses brand title and 3-lines collapse button */
+/* Design Decision: Minimal outline header with close button */
 .sidebar-header {
   display: flex;
   align-items: center;
@@ -223,53 +187,68 @@ body {
   border-bottom: 1px solid var(--border-card);
 }
 
-.sidebar-brand-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar-brand-label {
-  font-size: 0.68rem;
+.sidebar-title {
   font-family: var(--font-mono);
+  font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  color: var(--accent-primary);
-}
-
-.sidebar-brand {
-  font-size: 0.82rem;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  color: var(--text-main);
-  letter-spacing: 0.3px;
-}
-
-#sidebar h3 {
-  font-size: 0.78rem;
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 1px;
   color: var(--text-muted);
-  border-bottom: 2px solid var(--border-card);
-  padding-bottom: 8px;
-  margin-bottom: 14px;
 }
 
-#sidebar ul {
+.sidebar-close-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 6px;
+  border: 1px solid var(--border-card);
+  background-color: var(--bg-card-muted);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.sidebar-close-btn:hover {
+  background-color: var(--accent-primary-bg);
+  border-color: #f59e0b;
+  color: #78350f;
+}
+
+.sidebar-close-btn:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.sidebar-list {
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-#sidebar li {
-  margin-bottom: 6px;
+.sidebar-list li {
+  margin-bottom: 4px;
+}
+
+.sidebar-num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-right: 0.45rem;
+  display: inline-block;
+  min-width: 1.25rem;
 }
 
 #sidebar a {
   color: var(--text-main);
   text-decoration: none;
-  font-size: 0.85rem;
-  display: block;
-  padding: 6px 10px;
+  font-size: 0.84rem;
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
   border-radius: 4px;
   border-left: 3px solid transparent;
   transition: background-color 0.15s ease, border-color 0.15s ease;
@@ -289,30 +268,9 @@ body {
   color: var(--accent-primary-hover);
 }
 
-.sidebar-nav-switch {
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px dashed var(--border-card);
-}
-
-.sidebar-switch-link {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 600;
-  padding: 8px 10px;
-  background-color: var(--bg-card-muted);
-  border: 1px solid var(--border-card);
-  border-radius: 4px;
-  color: var(--text-main);
-  text-decoration: none;
-  transition: all 0.15s ease;
-}
-
-.sidebar-switch-link:hover {
-  background-color: var(--accent-primary-bg);
-  border-color: #f59e0b;
-  color: #78350f;
+#sidebar a.active .sidebar-num {
+  color: var(--accent-primary);
+  font-weight: 700;
 }
 
 /* Design Decision: Laptop collapse animation smoothly frees horizontal width for focused reading */
@@ -326,60 +284,70 @@ body.sidebar-collapsed #sidebar {
 #content {
   flex-grow: 1;
   min-width: 0;
-  max-width: 960px;
-  padding: 40px 48px;
+  max-width: 900px;
+  padding: 44px 48px;
   margin: 0 auto;
   box-sizing: border-box;
   transition: max-width 0.25s ease, padding 0.25s ease;
 }
 
-/* Design Decision: Centered 840px column in collapsed state optimizes characters per line for technical reading */
+/* Design Decision: Centered 780px editorial column in collapsed state optimizes characters per line for technical reading */
 body.sidebar-collapsed #content {
-  max-width: 840px;
+  max-width: 780px;
 }
 
-/* Header & Breadcrumb Banner */
-.page-banner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  background-color: var(--bg-card-muted);
-  border: 1px solid var(--border-card);
-  border-radius: 6px;
-  padding: 0.6rem 1rem;
-  margin-bottom: 1.5rem;
-  font-size: 0.84rem;
+/* Typesafe-inspired Article Hero Header */
+.article-hero {
+  border-bottom: 1px solid var(--border-card);
+  padding-bottom: 2.25rem;
+  margin-bottom: 2.75rem;
 }
 
-.banner-title {
+.article-category {
   font-family: var(--font-mono);
+  font-size: 0.8125rem;
   font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  margin-bottom: 0.85rem;
+}
+
+.article-title {
+  font-size: clamp(2.2rem, 4.2vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  color: var(--text-main);
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.article-byline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.byline-author {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.byline-dot {
   color: var(--text-muted);
 }
 
-.banner-link {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 0.8rem;
-  color: var(--accent-primary);
-  text-decoration: none;
-  padding: 3px 8px;
-  border-radius: 4px;
-  background-color: var(--accent-primary-bg);
-  border: 1px solid #f59e0b;
-}
-
-.banner-link:hover {
-  background-color: #fde68a;
-  text-decoration: underline;
-}
-
-header {
-  border-bottom: 2px solid var(--border-strong);
-  padding-bottom: 1.5rem;
-  margin-bottom: 2.25rem;
+.article-lead {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 48rem;
+  margin: 0;
 }
 
 h1 {
@@ -1155,10 +1123,6 @@ p code, li code {
     padding: 24px 18px;
     max-width: 100%;
   }
-
-  .top-navbar-brand-wrap .top-navbar-pill {
-    display: none;
-  }
 }
 
 @media (max-width: 600px) {
@@ -1166,16 +1130,12 @@ p code, li code {
     display: none;
   }
 
-  .top-nav-quick-links {
-    display: none;
-  }
-
   #content {
     padding: 20px 14px;
   }
 
-  .blog-meta-bar {
-    gap: 6px;
+  .article-title {
+    font-size: 2rem;
   }
 }
 
@@ -1199,51 +1159,6 @@ pre {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   max-width: 100%;
-}
-
-/* Blog Article Header & Lead Formatting */
-.blog-header {
-  border-bottom: 2px solid var(--border-strong);
-  padding-bottom: 1.5rem;
-  margin-bottom: 2.25rem;
-}
-
-.blog-meta-bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 0.85rem;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-.blog-tag-primary {
-  background-color: var(--accent-primary-bg);
-  color: #78350f;
-  border: 1px solid #f59e0b;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-weight: 700;
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.blog-meta-item {
-  color: var(--text-muted);
-}
-
-.blog-lead {
-  font-size: 1.06rem;
-  line-height: 1.75;
-  color: var(--text-muted);
-  margin-top: 1rem;
-  border-left: 3px solid var(--accent-primary);
-  padding: 0.6rem 0 0.6rem 1rem;
-  background-color: rgba(254, 243, 199, 0.2);
-  border-radius: 0 4px 4px 0;
 }
 
 /* Design Decision: Interactive zoom and pan wrapper for architectural flowcharts */

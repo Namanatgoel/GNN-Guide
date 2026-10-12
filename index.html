@@ -37,7 +37,7 @@
   </div>
 
   <!-- Blog Top Navbar with 3-Lines Collapse/Toggle Button -->
-  <header id="topNavbar" class="top-navbar" aria-label="Curriculum Header">
+  <header id="topNavbar" class="top-navbar" aria-label="Article Header">
     <div class="top-navbar-left">
       <button id="sidebarToggleBtn" class="sidebar-toggle-btn" aria-label="Toggle navigation sidebar" aria-expanded="false" aria-controls="sidebar" title="Toggle navigation sidebar (Ctrl+B)">
         <svg class="icon-hamburger" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
@@ -48,15 +48,10 @@
       </button>
       <div class="top-navbar-brand-wrap">
         <span class="top-navbar-brand">Graph Neural Networks</span>
-        <span class="top-navbar-pill">Curriculum</span>
       </div>
     </div>
     <div class="top-navbar-right">
       <span class="top-read-time">45 min read</span>
-      <div class="top-nav-quick-links">
-        <a href="#why-gnns" class="top-nav-part-link">Part 1: Foundations</a>
-        <a href="#bridge" class="top-nav-part-link">Part 2: Advanced</a>
-      </div>
     </div>
   </header>
 
@@ -64,78 +59,54 @@
   <div id="sidebarBackdrop" class="sidebar-backdrop" aria-hidden="true"></div>
 
   <div class="site-layout">
-    <!-- Unified Sticky Sidebar Navigation -->
-    <nav id="sidebar" aria-label="Course Navigation">
+    <!-- Outline Sidebar Navigation -->
+    <nav id="sidebar" aria-label="Table of Contents">
       <div class="sidebar-header">
-        <div class="sidebar-brand-group">
-          <span class="sidebar-brand-label">GNN Curriculum</span>
-          <div class="sidebar-brand">Navigation</div>
-        </div>
-        <button id="sidebarCollapseBtn" class="sidebar-toggle-btn sidebar-inner-collapse-btn" aria-label="Collapse navigation sidebar" title="Collapse sidebar (Ctrl+B)">
-          <svg class="icon-hamburger" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
-            <line x1="2.5" y1="5" x2="17.5" y2="5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-            <line x1="2.5" y1="10" x2="17.5" y2="10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-            <line x1="2.5" y1="15" x2="17.5" y2="15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+        <span class="sidebar-title">Outline</span>
+        <button id="sidebarCollapseBtn" class="sidebar-close-btn" aria-label="Close outline" title="Close outline (Ctrl+B)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         </button>
       </div>
 
-    <h3>Part 1: Foundations</h3>
-    <ul>
-      <li><a href="#why-gnns" class="active">1. Why Standard NNs Fail</a></li>
-      <li><a href="#graph-math">2. Mathematical Foundations</a></li>
-      <li><a href="#intuition">3. Flow as Diffusion</a></li>
-      <li><a href="#mpnn">4. The MPNN Framework</a></li>
-      <li><a href="#solved-example">5. Solved Numerical Example</a></li>
-      <li><a href="#architectures">6. Foundational Architectures</a></li>
-      <li><a href="#interactive-sim">7. Interactive Multi-Mode Sim</a></li>
-      <li><a href="#bottlenecks">8. Expressive Power &amp; Limits</a></li>
-      <li><a href="#scratch-python">9. NumPy Engine from Scratch</a></li>
-    </ul>
+      <ul class="sidebar-list">
+        <li><a href="#why-gnns" class="active"><span class="sidebar-num">01</span> Why Standard NNs Fail</a></li>
+        <li><a href="#graph-math"><span class="sidebar-num">02</span> Mathematical Foundations</a></li>
+        <li><a href="#intuition"><span class="sidebar-num">03</span> Flow as Diffusion</a></li>
+        <li><a href="#mpnn"><span class="sidebar-num">04</span> The MPNN Framework</a></li>
+        <li><a href="#solved-example"><span class="sidebar-num">05</span> Solved Numerical Example</a></li>
+        <li><a href="#architectures"><span class="sidebar-num">06</span> Foundational Architectures</a></li>
+        <li><a href="#interactive-sim"><span class="sidebar-num">07</span> Interactive Multi-Mode Sim</a></li>
+        <li><a href="#bottlenecks"><span class="sidebar-num">08</span> Expressive Power &amp; Limits</a></li>
+        <li><a href="#scratch-python"><span class="sidebar-num">09</span> NumPy Engine from Scratch</a></li>
+        <li><a href="#bridge"><span class="sidebar-num">10</span> Foundations Bridge</a></li>
+        <li><a href="#karate-club"><span class="sidebar-num">11</span> Karate Club Explorer</a></li>
+        <li><a href="#matrix-mechanics"><span class="sidebar-num">12</span> GCN &amp; Renormalization</a></li>
+        <li><a href="#graphsage-karate"><span class="sidebar-num">13</span> GraphSAGE &amp; Sampling</a></li>
+        <li><a href="#gat-attention"><span class="sidebar-num">14</span> GAT &amp; Dynamic Attention</a></li>
+        <li><a href="#graph-gps"><span class="sidebar-num">15</span> GraphGPS &amp; k-WL Limits</a></li>
+        <li><a href="#benchmarks"><span class="sidebar-num">16</span> Empirical Benchmarks</a></li>
+        <li><a href="#pyg-code"><span class="sidebar-num">17</span> PyG Production Code</a></li>
+      </ul>
+    </nav>
 
-    <h3 style="margin-top: 1.5rem;">Part 2: Advanced Systems</h3>
-    <ul>
-      <li><a href="#bridge">10. Foundations Bridge</a></li>
-      <li><a href="#karate-club">11. Karate Club Explorer</a></li>
-      <li><a href="#matrix-mechanics">12. GCN &amp; Renormalization</a></li>
-      <li><a href="#graphsage-karate">13. GraphSAGE &amp; Sampling</a></li>
-      <li><a href="#gat-attention">14. GAT &amp; Dynamic Attention</a></li>
-      <li><a href="#graph-gps">15. GraphGPS &amp; k-WL Limits</a></li>
-      <li><a href="#benchmarks">16. Empirical Benchmarks</a></li>
-      <li><a href="#pyg-code">17. PyG Production Code</a></li>
-    </ul>
-  </nav>
-
-  <!-- Main Scrollable Content Area -->
-  <main id="content">
-    <div class="page-banner">
-      <span class="banner-title">Graph Neural Networks: Complete Curriculum (Parts 1 &amp; 2)</span>
-      <div>
-        <a href="#why-gnns" class="banner-link">Part 1: Foundations</a>
-        <a href="#bridge" class="banner-link" style="margin-left: 0.5rem;">Part 2: Advanced Systems &rarr;</a>
-      </div>
-    </div>
-
-    <!-- PART 1 HEADER -->
-    <header id="part-1-header" class="blog-header">
-      <div class="blog-meta-bar">
-        <span class="blog-tag-primary">Deep Dive Curriculum</span>
-        <span class="blog-meta-item">⏱ 45 min read</span>
-        <span class="blog-meta-item">🗓 October 2026</span>
-        <span class="blog-meta-item">✍ Peer-Reviewed References</span>
-      </div>
-      <h1>Graph Neural Networks: First Principles</h1>
-      <div class="header-meta">
-        <span class="badge badge-primary">Foundational Theory</span>
-        <span class="badge">Scope: Topology / MPNN / Matrix Math</span>
-        <span class="badge">Interactive Engine: 5-Node Diffusion</span>
-        <span class="badge">Reference: Kipf &amp; Welling / Gilmer et al.</span>
-      </div>
-      <p class="blog-lead">
-        A rigorous introduction to Graph Neural Networks from ground-level mathematics.
-        This document explains why Euclidean deep learning fails on irregular relations, derives the message passing framework, calculates a complete forward pass by hand, and tests discrete diffusion interactively.
-      </p>
-    </header>
+    <!-- Main Scrollable Content Area -->
+    <main id="content">
+      <header class="article-hero">
+        <div class="article-category">Research &amp; Engineering</div>
+        <h1 class="article-title">Graph Neural Networks: From First Principles to Advanced Systems</h1>
+        <div class="article-byline">
+          <span class="byline-author">Naman Goel</span>
+          <span class="byline-dot">&middot;</span>
+          <time datetime="2026-10">October 2026</time>
+        </div>
+        <p class="article-lead">
+          A rigorous guide to Graph Neural Networks from ground-level algebraic topology to empirical architectures.
+          This article examines why standard Euclidean neural networks fail on irregular relations, derives the message passing neural network framework, executes a step-by-step forward pass by hand, and analyzes modern architectures from spectral convolutions to GraphGPS.
+        </p>
+      </header>
 
 <section id="why-gnns">
       <h2>1. Why Standard Neural Networks Fail on Graphs</h2>
@@ -1094,47 +1065,10 @@ H_gps <span class="tok-op">=</span> <span class="tok-fn">relu</span>(H_local <sp
 <span class="tok-fn">print</span>(<span class="tok-str">"GraphGPS Layer Output:\n"</span>, np.<span class="tok-fn">round</span>(H_gps, <span class="tok-num">3</span>))</code></pre>
     </section>
 
-    <!-- TRANSITION TO PART 2 -->
-    <div class="callout" style="margin-top: 3.5rem; border-left-color: var(--accent-primary);">
-      <h4>Part 1 Complete: Transitioning to Empirical Systems</h4>
-      <p style="margin-bottom: 0.75rem;">
-        Having established algebraic topology, Laplacian renormalization, and MPNN forward passes on foundational graphs, we now advance to empirical social networks, dynamic attention mechanisms, and canonical benchmark evaluations.
-      </p>
-      <a href="#bridge" class="btn" style="text-decoration: none; display: inline-block;">Continue to Part 2: Advanced Systems &rarr;</a>
-    </div>
-
-    <!-- PART 2 DIVIDER & HEADER -->
-    <div id="part-2-header" style="margin: 4.5rem 0 2rem; border-top: 2px dashed var(--border-card); padding-top: 2.5rem;">
-      <div class="page-banner" style="background-color: var(--accent-primary-bg); border-color: #f59e0b;">
-        <span class="banner-title" style="color: #78350f; font-weight: 700;">Part 2: Advanced Architectures &amp; Canonical Benchmarks</span>
-        <a href="#why-gnns" class="banner-link">&larr; Return to Part 1: Foundations</a>
-      </div>
-
-      <header class="blog-header" style="margin-top: 1.5rem;">
-        <div class="blog-meta-bar">
-          <span class="blog-tag-primary">Advanced Systems</span>
-          <span class="blog-meta-item">⏱ 30 min read</span>
-          <span class="blog-meta-item">🗓 October 2026</span>
-          <span class="blog-meta-item">✍ Canonical Benchmarks</span>
-        </div>
-        <h1>Part 2: Advanced GNN Architectures &amp; Empirical Systems</h1>
-        <div class="header-meta">
-          <span class="badge badge-primary">Empirical Verification</span>
-          <span class="badge">Canonical Benchmarks: Karate Club &amp; Cora</span>
-          <span class="badge">Framework: PyTorch Geometric (PyG)</span>
-          <span class="badge">Paradigms: GCN / GraphSAGE / GAT / GraphGPS</span>
-        </div>
-        <p class="blog-lead">
-          Building directly upon the topological foundations established in Part 1.
-          This document evaluates real-world topological benchmarks, inspects Kipf-Welling spectral renormalization with live cell derivations, demonstrates multi-paradigm message passing on Zachary's Karate Club, evaluates dynamic attention distributions across community boundaries, and verifies training curves on canonical benchmarks.
-        </p>
-      </header>
-    </div>
-
-<section id="bridge">
+    <section id="bridge">
       <h2>10. Foundations Bridge: From Abstract Theory to Empirical Topologies</h2>
       <p>
-        In <a href="#why-gnns" style="color: var(--accent-primary); font-weight: 600;">Part 1 (Foundations)</a>, we established the fundamental algebraic constraints of graph learning: permutation equivariance, unnormalized and symmetric graph Laplacians ($L$ and $L_{\text{sym}}$), the message passing framework (MPNN), and discrete diffusion across a 3-node path graph.
+        In the foundational sections, we established the fundamental algebraic constraints of graph learning: permutation equivariance, unnormalized and symmetric graph Laplacians ($L$ and $L_{\text{sym}}$), the message passing framework (MPNN), and discrete diffusion across a 3-node path graph.
       </p>
 
       <p>
@@ -1491,7 +1425,7 @@ flowchart LR
     <section id="graph-gps">
       <h2>15. Graph Transformers, GraphGPS &amp; k-WL Expressive Limits</h2>
       <p>
-        In Part 1, we established that standard message passing is upper-bounded by the 1-Weisfeiler-Lehman (1-WL) test (Xu et al., 2019).
+        In earlier sections, we established that standard message passing is upper-bounded by the 1-Weisfeiler-Lehman (1-WL) test (Xu et al., 2019).
 
         To distinguish higher-order subgraphs and resolve over-squashing, the field progressed to $k$-WL tests ($k \ge 3$) and Graph Transformers (Rampášek et al., 2022).
       </p>
@@ -1715,7 +1649,7 @@ criterion <span class="tok-op">=</span> <span class="tok-bi">nn</span>.<span cla
   </main>
 </div> <!-- /.site-layout -->
 
-  <!-- Part 1: 5-Node Multi-Architecture Simulator Logic -->
+  <!-- 5-Node Multi-Architecture Simulator Logic -->
   <script>
 // 5-Node Multi-Architecture Simulator Logic
     const simNodes = [
@@ -2072,7 +2006,7 @@ criterion <span class="tok-op">=</span> <span class="tok-bi">nn</span>.<span cla
     });
   </script>
 
-  <!-- Part 2: Advanced Systems, Matrix Heatmap, Karate Club, and Results Engine -->
+  <!-- Empirical Systems, Matrix Heatmap, Karate Club, and Results Engine -->
   <script defer src="learn/web/app.js?v=2"></script>
 </body>
 </html>

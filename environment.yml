@@ -1,0 +1,7 @@
+name: gnn-learn
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10 # user running
+  - numpy # user running
